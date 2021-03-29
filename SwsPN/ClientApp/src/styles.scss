@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+// @import "~@fortawesome/fontawesome-free/css/all.css";
+
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-header-cell {
+  color: black !important;
+  font-size: 1rem;
+  /* background-color: darkblue; */
+}
+
+.file-upload {
+  margin: 0 10px 0 25px;
+}
+
+.file-upload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  font-size: 20px;
+  cursor: pointer;
+  height: 36px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+#fileuploadurl {
+  border: none;
+  font-size: 12px;
+  padding-left: 0;
+  width: 250px;
+}
+
