@@ -18,7 +18,11 @@ export class ErrWrsService {
     return this.http.post(`${api}errwrs`, data);
   }
 
-  getTest() {
-    return this.http.get(`${api}errwrs/test`);
+  getNotReported() {
+    return this.http.get(`${api}errwrs/notreported`);
+  }
+
+  getAlreadyReported() {
+    return this.http.get(`${api}errwrs/alreadyreported`);
   }
 }

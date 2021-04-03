@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SwsPN.Models;
+using SwsPN.Repositories;
+using SwsPN.Services;
 
 namespace SwsPN
 {
@@ -40,6 +42,9 @@ namespace SwsPN
             });
             services.AddDbContext<SwsDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SwsDB")));
+
+            services.AddSingleton(Configuration.GetSection("EmailConfig").Get<EmailConfig>());
+            services.AddScoped<IEmailSender, EmailSender>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

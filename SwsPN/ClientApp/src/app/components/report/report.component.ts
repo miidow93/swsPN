@@ -12,7 +12,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['checkCode', 'swsPN', 'operationName',
     'classFlag1', 'classFlag2', 'classFlag3', 'classFlag4', 'classFlag5', 'classFlag6',
-    'dateError', 'reported', 'drawing'];
+    'dateError', 'drawing'];
   dataSource = new MatTableDataSource([]);
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   // public forecasts: WeatherForecast[];

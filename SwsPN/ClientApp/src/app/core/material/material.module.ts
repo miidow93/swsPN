@@ -30,38 +30,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-/*import {
-  MatInputModule,
-  MatAutocompleteModule,
-  MatDatepickerModule,
-  MatFormFieldModule,
-  MatCheckboxModule,
-  MatButtonModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatMenuModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatListModule,
-  MatGridListModule,
-  MatCardModule,
-  MatStepperModule,
-  MatTabsModule,
-  MatExpansionModule,
-  MatButtonToggleModule,
-  MatChipsModule,
-  MatIconModule,
-  MatProgressSpinnerModule,
-  MatProgressBarModule,
-  MatDialogModule,
-  MatTooltipModule,
-  MatSnackBarModule,
-  MatTableModule,
-  MatSortModule,
-  MatPaginatorModule,
-} from '@angular/material';*/
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({

@@ -13,30 +13,35 @@ import { DataSharedService } from './core/services/data-shared.service';
 import { MaterialModule } from './core/material/material.module';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReportComponent } from './components/report/report.component';
-import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { AdminComponent } from './layouts/admin/admin.component';
+import { TechComponent } from './layouts/tech/tech.component';
+import { AuthComponent } from './layouts/auth/auth.component';
+import { NavbarService } from './core/services/navbar.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AdminComponent,
+    AuthComponent,
+    TechComponent,
     NavMenuComponent,
-    HomeComponent,
-    ReportComponent,
-    FileValueAccessorDirective
+    // LoginComponent
+    // ReportComponent,
+    // FileValueAccessorDirective
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
+    // HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
+    // MaterialModule,
     AppRoutingModule
   ],
   providers: [
-    DataSharedService, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+    DataSharedService, NavbarService, { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } }
   ],
   bootstrap: [AppComponent]
 })

@@ -33,6 +33,19 @@ namespace SwsPN.Controllers
             return await _context.ErrWrs.ToListAsync();
         }
 
+
+        [HttpGet("notreported")]
+        public async Task<ActionResult<IEnumerable<ErrWrs>>> GetErrWrsNotReported()
+        {
+            return await _context.ErrWrs.Include(i => i.OperationNumNavigation).Where(w => (bool)w.Reported == false).ToListAsync();
+        }
+
+        [HttpGet("alreadyreported")]
+        public async Task<ActionResult<IEnumerable<ErrWrs>>> GetErrWrsAlreadyReported()
+        {
+            return await _context.ErrWrs.Include(i => i.OperationNumNavigation).Where(w => (bool)w.Reported == true).ToListAsync();
+        }
+
         // GET: api/ErrWrs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ErrWrs>> GetErrWrs(int id)

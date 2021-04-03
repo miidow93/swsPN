@@ -8,13 +8,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Errors } from '../../core/models/errors';
 import { DataSharedService } from '../../core/services/data-shared.service';
+import { NavbarService } from 'src/app/core/services/navbar.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-upload',
+  templateUrl: './upload.component.html',
+  styleUrls: ['./upload.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class UploadComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['name', 'size', 'lastModified'];
   dataSource = new MatTableDataSource([]);
@@ -38,13 +39,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private errWrsService: ErrWrsService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    public navBarService: NavbarService) { }
 
   ngOnInit(): void {
     // this.errWrsService.getTest().subscribe(res => console.log(res));
 
     // var WinNetwork = new Window.ActiveXObject("WScript.Network");
     // alert(WinNetwork.UserName); 
+    this.navBarService.show();
 
     this.sharedService.errors$.subscribe((res: Errors[]) => this.errors = res);
     // this.errWrsService.getAllErrWrs().subscribe((res: string[]) => this.swsPnFromDB = res);
@@ -100,15 +103,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
         if (checkOpNum) {
           // alert('All Op Num is set');
           formData.append('errors', JSON.stringify(this.errors));
-          this.errWrsService.postErrWrs(formData).subscribe(res => {
+          this.errWrsService.postErrWrs(formData).subscribe((res: any) => {
+            if (res && res.length > 0) {
+              this.sharedService.changeReported(res);
+              this.fvad.files = [];
+              this.dataSource.data = [];
+              this.sharedService.firstJH1 = true;
+              this.sharedService.changeFiles(null);
+              this.router.navigate(['/reported']);
+            } else {
+              this.openSnackBar('This data is already reported.');
+            }
             console.log('Post: ', res);
-            this.sharedService.changeReported(res);
-            this.fvad.files = [];
-            this.dataSource.data = [];
-            this.sharedService.changeFiles(null);
+            
 
             // this.formGroup.controls['file'].patchValue(null);
-            this.router.navigate(['/reported']);
           });
         } else {
           this.openSnackBar('Not all operation numbers are set, JH1 file is missing');
@@ -123,6 +132,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.openSnackBar('Is not matched');
         this.fvad.files = [];
         this.dataSource.data = [];
+        this.sharedService.firstJH1 = true;
         this.sharedService.changeFiles(null);
         // this.formGroup.controls['file'].setValue(null);
       }
@@ -130,6 +140,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.openSnackBar('Error 23 and 24 not found');
       this.fvad.files = [];
       this.dataSource.data = [];
+      this.sharedService.firstJH1 = true;
       this.sharedService.changeFiles(null);
     }
 

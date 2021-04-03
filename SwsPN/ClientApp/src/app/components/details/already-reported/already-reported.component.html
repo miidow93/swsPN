@@ -1,0 +1,94 @@
+<h1 id="tableLabel">Already Reported</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="table align-items-center table-flush">
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="checkCode">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Check Code </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{ element.checkCode }} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="swsPN">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Sws PN </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{ element.swsPn }} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="operationName">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Op. Name </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{ element.opName }}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="classFlag1">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Class Flag 1 </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{ element.classFlag1 }} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="classFlag2">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Class Flag 2 </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">{{ element.classFlag2 }}</td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="classFlag3">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Class Flag 3 </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{ element.classFlag3 }}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="classFlag4">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Class Flag 4 </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{ element.classFlag4 }} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="classFlag5">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Class Flag 5 </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">{{ element.classFlag5 }}</td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="classFlag6">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Class Flag 6 </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{ element.classFlag6 }}
+                    </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="dateError">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Raised Date </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> 
+                        {{ element.dateError | date: 'dd/MM/yyyy HH:mm' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dateReported">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Reported Date </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> 
+                        {{ element.dateError | date: 'dd/MM/yyyy HH:mm' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="drawing">
+                    <th mat-header-cell *matHeaderCellDef class="mat-display-3 text-center"> Drawing </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <button class="mat-raised-button">Edit</button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+
+        </div>
+    </div>
+</div>
