@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SwsPN.Models;
+using SwsPN.Services;
 
 namespace SwsPN.Controllers
 {
@@ -18,11 +19,13 @@ namespace SwsPN.Controllers
     {
         private readonly SwsDBContext _context;
         public static IWebHostEnvironment _environment;
+        private readonly IEmailSender _emailSender;
 
-        public ErrWrsController(SwsDBContext context, IWebHostEnvironment environment)
+        public ErrWrsController(SwsDBContext context, IWebHostEnvironment environment, IEmailSender emailSender)
         {
             _context = context;
             _environment = environment;
+            _emailSender = emailSender;
         }
 
 
@@ -31,6 +34,15 @@ namespace SwsPN.Controllers
         public async Task<ActionResult<IEnumerable<ErrWrs>>> GetErrWrs()
         {
             return await _context.ErrWrs.ToListAsync();
+        }
+
+        // GET: api/ErrWrs
+        [HttpGet("email")]
+        public async Task<ActionResult> SendEmail()
+        {
+            Message message = new Message(new string[] { "ats.medjellab@gmail.com", "bellous.mohammed@hotmail.com" }, "Test", "Test");
+            _emailSender.SendEmail(message);
+            return Ok(new { send = "good" });
         }
 
 
@@ -63,7 +75,7 @@ namespace SwsPN.Controllers
         // PUT: api/ErrWrs/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<IActionResult> PutErrWrs(int id, ErrWrs errWrs)
         {
             if (id != errWrs.Id)
@@ -90,7 +102,54 @@ namespace SwsPN.Controllers
             }
 
             return NoContent();
+        }*/
+
+        // GET: api/ErrWrs/5
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ErrWrs>> EditErrWrs(int id, [FromForm] IFormFile plans, [FromForm] string error)
+        {
+            var errwrs = JsonConvert.DeserializeObject<ErrWrs>(error);
+
+            if (id != errwrs.Id)
+            {
+                return BadRequest();
+            }
+
+            var errWrs = await _context.ErrWrs.FindAsync(id);
+
+            if (errWrs == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                string dbPath = await SavePlanAsync(plans);
+                errWrs.Drawing = dbPath;
+                errWrs.DateReported = DateTime.Now;
+                errWrs.Reported = true;
+            }
+
+            _context.Entry(errWrs).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ErrWrsExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            // var notReportedErrors = await GetErrWrsNotReported();
+            return errWrs;
         }
+
 
         // POST: api/ErrWrs
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -131,11 +190,12 @@ namespace SwsPN.Controllers
                     s.Reported,
                     s.Drawing
                 });
+                var obj = "New Errors";
+                var content = "There are some changes in table errors, please check list of errors and upload the plans";
+                Message message = new Message(new string[] { "bellous.mohammed@hotmail.com" }, obj, content);
+                _emailSender.SendEmail(message);
                 return Ok(union);
             }
-
-
-
 
             return Ok(new { message = "Good" });
         }
@@ -190,6 +250,32 @@ namespace SwsPN.Controllers
             }
 
             return folderName;
+        }
+
+        public async Task<string> SavePlanAsync(IFormFile plan)
+        {
+            string folderName = "Uploads\\drawings\\_" + DateTime.Now.ToString("ddMMyyyy_HHmmss");
+            string webRootPath = _environment.WebRootPath;
+            string pathToSave = Path.Combine(webRootPath, folderName);
+
+            if (!Directory.Exists(pathToSave))
+            {
+                Directory.CreateDirectory(pathToSave);
+            }
+
+
+            if (plan.Length > 0)
+            {
+                var fullPath = Path.Combine(pathToSave, plan.FileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await plan.CopyToAsync(stream);
+                }
+
+
+            }
+
+            return Path.Combine(folderName,plan.FileName);
         }
     }
 }

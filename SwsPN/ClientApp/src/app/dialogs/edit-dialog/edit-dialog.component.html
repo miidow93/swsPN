@@ -1,0 +1,26 @@
+<!-- <form formGroup]="formGroup" (submit)="drawing()" enctype="multipart/form-data">
+    <div class="file-upload mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        <span>BROWSE</span>
+        <input type="file" formControlName="file" id="file"   class="upload" />
+      </div>
+      <button type="submit" name="confirm" value="confirm" mat-raised-button>Confirm</button>
+</form> -->
+<div>
+    <div class="container">
+        <div class="row justif-content-center">
+            <div class="col-md-3">
+                Please Upload the drawing:
+            </div>
+            <div class="col-md-9">
+                <form [formGroup]="formGroup" (submit)="drawing()" enctype="multipart/form-data">
+                    <div class="file-upload mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        <span>BROWSE</span>
+                        <input type="file" formControlName="file" id="file" class="upload"  (change)="onChange($event.target.files)" />
+                    </div>
+                    <button type="submit" name="confirm" value="confirm" mat-raised-button>Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

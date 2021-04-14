@@ -53,3 +53,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 250px;
 }
 
+.dropZoneColor {
+  border: 3px dotted rgba(0,0,0,0.08);
+  background-color: rgba(0,0,0,0.12)
+}
+
+.dropZoneColorDrag {
+  border: 3px dotted rgba(0,0,0,0.28);
+  background-color: grey
+}
+
+.dropZoneColorDrop {
+  border: 3px dotted rgba(0,0,0,0.08);
+  background-color: rgba(0,0,0,0.12)
+}
+

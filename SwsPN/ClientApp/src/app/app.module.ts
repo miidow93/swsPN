@@ -18,6 +18,20 @@ import { AdminComponent } from './layouts/admin/admin.component';
 import { TechComponent } from './layouts/tech/tech.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { NavbarService } from './core/services/navbar.service';
+// import { NgxUploadModule, MineTypeEnum, DropTargetOptions, InputFileOptions } from '@wkoza/ngx-upload';
+
+/*export const ngxDropTargetOptions: DropTargetOptions = {
+  color: 'dropZoneColor',
+  colorDrag: 'dropZoneColorDrag',
+  colorDrop: 'dropZoneColorDrop',
+  multiple: false,
+  accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf]
+};
+
+export const optionsInput: InputFileOptions = {
+  multiple: false,
+  accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf]
+};*/
 
 
 @NgModule({
@@ -37,6 +51,7 @@ import { NavbarService } from './core/services/navbar.service';
     // HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    // NgxUploadModule.forRoot(),
     // MaterialModule,
     AppRoutingModule
   ],

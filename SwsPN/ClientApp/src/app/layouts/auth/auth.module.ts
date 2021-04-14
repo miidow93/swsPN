@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from '../../components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../../core/material/material.module';
+import { AuthService } from 'src/app/core/services/api/auth.service';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { MaterialModule } from '../../core/material/material.module';
     MaterialModule,
     HttpClientModule,
     AuthRoutingModule
-  ]
+  ],
+  providers: [AuthService]
 })
 export class AuthModule { }

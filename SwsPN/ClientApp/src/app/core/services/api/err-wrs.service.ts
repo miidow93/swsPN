@@ -25,4 +25,12 @@ export class ErrWrsService {
   getAlreadyReported() {
     return this.http.get(`${api}errwrs/alreadyreported`);
   }
+
+  editErrWrs(id, data) {
+    return this.http.put(`${api}errwrs/${id}`, data);
+  }
+
+  /*sendEmail() {
+    return this.http.get(`${api}errwrs/email`);
+  }*/
 }

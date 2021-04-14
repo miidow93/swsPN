@@ -22,13 +22,15 @@ namespace SwsPN.Models
         public virtual DbSet<Components> Components { get; set; }
         public virtual DbSet<ErrWrs> ErrWrs { get; set; }
         public virtual DbSet<Operations> Operations { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("data source=.;initial catalog=db_sws;trusted_connection=true;");
+                optionsBuilder.UseSqlServer("data source=.; initial catalog=db_sws; integrated security=true;");
             }
         }
 
@@ -235,6 +237,50 @@ namespace SwsPN.Models
                     .HasColumnName("operationNum")
                     .HasMaxLength(20)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Roles>(entity =>
+            {
+                entity.ToTable("roles");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Libelle)
+                    .HasColumnName("libelle")
+                    .HasMaxLength(80)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Users>(entity =>
+            {
+                entity.ToTable("users");
+
+                entity.HasIndex(e => e.Username)
+                    .HasName("uc_username")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdRole).HasColumnName("id_role");
+
+                entity.Property(e => e.Password).HasColumnName("password");
+
+                entity.Property(e => e.Salt).HasColumnName("salt");
+
+                entity.Property(e => e.Username)
+                    .HasColumnName("username")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdRoleNavigation)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.IdRole)
+                    .HasConstraintName("fk_role");
             });
 
             OnModelCreatingPartial(modelBuilder);
