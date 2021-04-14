@@ -18,6 +18,8 @@ import { AdminComponent } from './layouts/admin/admin.component';
 import { TechComponent } from './layouts/tech/tech.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { NavbarService } from './core/services/navbar.service';
+import { JwtModule } from '@auth0/angular-jwt';
+
 // import { NgxUploadModule, MineTypeEnum, DropTargetOptions, InputFileOptions } from '@wkoza/ngx-upload';
 
 /*export const ngxDropTargetOptions: DropTargetOptions = {
@@ -33,6 +35,9 @@ export const optionsInput: InputFileOptions = {
   accept: [MineTypeEnum.Image, MineTypeEnum.Application_Pdf]
 };*/
 
+export function getToken() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -53,6 +58,15 @@ export const optionsInput: InputFileOptions = {
     ReactiveFormsModule,
     // NgxUploadModule.forRoot(),
     // MaterialModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken,
+        /*whitelistedDomains: [
+          'http://localhost:4000',
+          'http://192.168.1.19:4000'
+        ]*/
+      }
+    }),
     AppRoutingModule
   ],
   providers: [

@@ -7,7 +7,7 @@ import { AuthComponent } from './layouts/auth/auth.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
     component: AdminComponent,
@@ -37,7 +37,17 @@ const routes: Routes = [
         loadChildren: () => import('./layouts/auth/auth.module').then(m => m.AuthModule)
       }
     ]
-  }
+  }/*,
+  {
+    path: '**',
+    component: AuthComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./layouts/auth/auth.module').then(m => m.AuthModule)
+      }
+    ]
+  }*/
 ];
 
 @NgModule({

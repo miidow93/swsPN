@@ -42,7 +42,7 @@ export class DataSharedService {
   errors$ = this.errors.asObservable();
   reported$ = this.reported.asObservable();
 
-  firstJH1 = true;
+  public firstJH1 = true;
 
   constructor() { }
 
@@ -151,6 +151,9 @@ export class DataSharedService {
                       error.checkCode = class_flag_data[index].checkCode;
                       error.areaC = class_flag_data[index].areaC;
                       error.custC = class_flag_data[index].custC;
+                      if (localStorage.getItem('username') != '') {
+                        error.winUserID = localStorage.getItem('username');
+                      }
                       cf.push(error);
                     }
                     index++;

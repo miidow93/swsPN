@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('FormGroup: ', this.formGroup.value);
+    // console.log('FormGroup: ', this.formGroup.value);
     if (this.formGroup.invalid)
       return;
 
@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('role', res.role);
         if (res.role && res.role != '') {
           switch (res.role) {
-            case 'Admin': this.router.navigate(['home']); break;
-            case 'Tech': this.router.navigate(['upload']); break;
+            case 'ADO PL': this.router.navigate(['home']); break;
+            case 'ADO Tech': this.router.navigate(['upload']); break;
           }
         }
       }

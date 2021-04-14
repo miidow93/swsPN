@@ -113,6 +113,10 @@ export class UploadComponent implements OnInit, AfterViewInit {
               this.router.navigate(['/reported']);
             } else {
               this.openSnackBar('This data is already reported.');
+              this.fvad.files = [];
+              this.dataSource.data = [];
+              this.sharedService.firstJH1 = true;
+              this.sharedService.changeFiles(null);
             }
             console.log('Post: ', res);
             
@@ -129,7 +133,8 @@ export class UploadComponent implements OnInit, AfterViewInit {
         // console.log('Data: ', data);
         // 
       } else {
-        this.openSnackBar('Is not matched');
+        this.openSnackBar('Files are not matched');
+        this.errors = [];
         this.fvad.files = [];
         this.dataSource.data = [];
         this.sharedService.firstJH1 = true;

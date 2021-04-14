@@ -1,45 +1,57 @@
 <header *ngIf="navBarService.visible">
-    <nav
-      class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-    >
-      <div class="container">
-        <a class="navbar-brand" [routerLink]="['/']">SWS Project</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target=".navbar-collapse"
-          aria-label="Toggle navigation"
-          [attr.aria-expanded]="isExpanded"
-          (click)="toggle()"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-          [ngClass]="{ show: isExpanded }"
-        >
-          <ul class="navbar-nav flex-grow">
-            <li
-              class="nav-item"
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <!--<a class="navbar-brand" [routerLink]="['/']">SWS Project</a>-->
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item"
               [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
+              [routerLinkActiveOptions]="{ exact: true }">
+            <ng-container *ngIf="role === 'ADO PL'; else techTemp">
               <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-            </li>
-            <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link text-dark" [routerLink]="['/counter']"
-                >Counter</a
-              >
-            </li>
+            </ng-container>
+            <ng-template #techTemp>
+              <a class="nav-link text-dark" [routerLink]="['/upload']">Home</a>
+            </ng-template>
+          </li>
+
+          <ng-container *ngIf="role === 'ADO PL'">
             <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-                >Fetch data</a
-              >
-            </li> -->
-          </ul>
-        </div>
+              <a class="nav-link text-dark" [routerLink]="['/already']">Already Reported</a>
+            </li>
+          </ng-container>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="btn nav-link text-dark" (click)="logout()">Logout</a>
+          </li>
+
+
+          <li class="nav-item">
+            <span class="nav-link text-dark">{{username + ' ' + role}}</span>
+          </li>
+
+          <!--<ng-template #techTemp>
+    <li class="nav-item" [routerLinkActive]="['link-active']">
+      <a class="nav-link text-dark" [routerLink]="['/already']">Already Reported</a>
+    </li>
+  </ng-template>-->
+          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
+    <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
+      >Fetch data</a
+    >
+  </li> -->
+        </ul>
       </div>
-    </nav>
-  </header>
-  
+    </div>
+  </nav>
+</header>

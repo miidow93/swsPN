@@ -11,8 +11,8 @@ import { DataSharedService } from './../../core/services/data-shared.service';
 export class ReportComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['checkCode', 'swsPN', 'operationName',
-    'classFlag1', 'classFlag2', 'classFlag3', 'classFlag4', 'classFlag5', 'classFlag6',
-    'dateError', 'drawing'];
+    'classFlag1', 'classFlag2', 'classFlag3', 'classFlag4', 'classFlag5', 'classFlag6'];
+    //, 'dateError', 'drawing'];
   dataSource = new MatTableDataSource([]);
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   // public forecasts: WeatherForecast[];

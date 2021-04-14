@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { server } from '../../../core/services/api/constants';
 import { ErrWrsService } from './../../../core/services/api/err-wrs.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class AlreadyReportedComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['checkCode', 'swsPN', 'operationName',
     'classFlag1', 'classFlag2', 'classFlag3', 'classFlag4', 'classFlag5', 'classFlag6',
-    'dateError', 'dateReported']; //, 'drawing'];
+    'dateError', 'dateReported', 'drawing'];
 
   dataSource = new MatTableDataSource([]);
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -29,6 +30,11 @@ export class AlreadyReportedComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // throw new Error('Method not implemented.');
     this.dataSource.paginator = this.paginator;
+  }
+
+  download(url) {
+    console.log(url);
+    window.open(`${server}${url}`);
   }
 
 }
