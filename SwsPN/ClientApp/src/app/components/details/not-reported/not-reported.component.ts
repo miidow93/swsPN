@@ -37,7 +37,7 @@ export class NotReportedComponent implements OnInit, AfterViewInit {
     console.log('Row: ', row);
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '50%',
-      disableClose: true,
+      //disableClose: true,
       data: row
     });
 

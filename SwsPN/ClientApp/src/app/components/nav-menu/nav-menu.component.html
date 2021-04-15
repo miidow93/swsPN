@@ -1,8 +1,8 @@
-<header *ngIf="navBarService.visible">
+<!--<header *ngIf="navBarService.visible">
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue border-bottom box-shadow mb-3">
-    <div class="container-fluid m-l-15">
+    <div class="container-fluid m-l-15">-->
       <!--<a class="navbar-brand" [routerLink]="['/']">SWS Project</a>-->
-      <button class="navbar-toggler"
+      <!--<button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
               data-target=".navbar-collapse"
@@ -10,12 +10,13 @@
               [attr.aria-expanded]="isExpanded"
               (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button>-->
       <!--div navbar-collapse flex-sm-row-reverse-->
       <!--li a text-dark-->
-      <div class="navbar-collapse collapse d-sm-inline-flex "
+
+      <!--<div class="navbar-collapse collapse d-sm-inline-flex "
            [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
+        <ul class="navbar-nav flex-grow ">
           <li class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
@@ -41,19 +42,53 @@
           <li class="nav-item">
             <span class="nav-link text-white">{{username + ' ' + role}}</span>
           </li>
-
-          <!--<ng-template #techTemp>
-        <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/already']">Already Reported</a>
-        </li>
-      </ng-template>-->
-          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
-        <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-          >Fetch data</a
-        >
-      </li> -->
+        </ul>
+        <ul class="navbar-nav flex-grow">
+          <li>Test</li>
         </ul>
       </div>
     </div>
   </nav>
+</header>-->
+<header *ngIf="navBarService.visible">
+    <!--navbar-toggleable-sm border-bottom box-shadow mb-3-->
+  <nav class="navbar navbar-expand-sm navbar-light bg-blue mb-3">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      </button>
+      <!--<a class="navbar-brand" href="/">Application name</a>-->
+      <div class="navbar-collapse collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav mr-auto">
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <ng-container *ngIf="role === 'ADO PL'; else techTemp">
+              <a class="nav-link text-white" [routerLink]="['/home']">Not Reported</a>
+            </ng-container>
+            <ng-template #techTemp>
+              <a class="nav-link text-white" [routerLink]="['/upload']">Upload</a>
+            </ng-template>
+          </li>
+          <ng-container *ngIf="role == 'ADO PL'">
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-white" [routerLink]="['/already']">Already Reported</a>
+            </li>
+          </ng-container>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right mr-3">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="btn nav-link text-white" (click)="logout()">Logout</a>
+          </li>
+
+
+          <li class="nav-item">
+            <span class="nav-link text-white">{{username + ' (' + role + ')'}}</span>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
 </header>
+

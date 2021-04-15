@@ -134,6 +134,11 @@ namespace SwsPN.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                var obj = "New Parts Reported";
+                var content = $"Please to check the new reported part {errWrs.SwsPn} for MH registration";
+                var emails = new string[] { "bellous.mohammed@hotmail.com" };
+                Message message = new Message(emails, obj, content);
+                _emailSender.SendEmail(message);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -190,8 +195,9 @@ namespace SwsPN.Controllers
                     s.Reported,
                     s.Drawing
                 });
-                var obj = "New Errors";
-                var content = "There are some changes in table errors, please check list of errors and upload the plans";
+                var converted = JsonConvert.SerializeObject(intersectionsErr.Select(s => s.SwsPn));
+                var obj = "New Parts witout official MH";
+                var content = $"Please to check the new parts added, for official MH registration. \n {converted}";
                 Message message = new Message(new string[] { "bellous.mohammed@hotmail.com" }, obj, content);
                 _emailSender.SendEmail(message);
                 return Ok(union);

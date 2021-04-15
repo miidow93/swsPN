@@ -13,6 +13,7 @@ export class EditDialogComponent implements OnInit {
   formGroup: FormGroup;
   plans;
   fileToUpload;
+  fileName = '';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data,
     private dialogRef: MatDialogRef<EditDialogComponent>,
@@ -58,7 +59,7 @@ export class EditDialogComponent implements OnInit {
       return;
 
     this.fileToUpload = files.item(0);
-
+    this.fileName = this.fileToUpload.name;
     var reader = new FileReader();
     reader.readAsDataURL(this.fileToUpload);
     reader.onload = (e) => {

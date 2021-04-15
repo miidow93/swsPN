@@ -6,19 +6,22 @@
       <button type="submit" name="confirm" value="confirm" mat-raised-button>Confirm</button>
 </form> -->
 <div>
-    <div class="container">
-        <div class="row justif-content-center">
-            <div class="col-md-3">
+    <div class="container-fluid">
+        <div class="row">
+            <!--<div class="col-md-3">
                 Please Upload the drawing:
-            </div>
-            <div class="col-md-9">
+            </div>-->
+            <div class="col-md-5 justify-content-center">
                 <form [formGroup]="formGroup" (submit)="drawing()" enctype="multipart/form-data">
-                    <div class="file-upload mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    <div class="file-upload mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--blue">
                         <span>BROWSE</span>
                         <input type="file" formControlName="file" id="file" class="upload"  (change)="onChange($event.target.files)" />
                     </div>
-                    <button type="submit" name="confirm" value="confirm" mat-raised-button>Confirm</button>
+                    <button type="submit" name="confirm" value="confirm" mat-raised-button>Upload</button>
                 </form>
+            </div>
+            <div class="col-md-3">
+              <span>{{ fileName }}</span>
             </div>
         </div>
     </div>
