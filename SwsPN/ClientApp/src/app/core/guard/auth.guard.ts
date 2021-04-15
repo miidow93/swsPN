@@ -17,6 +17,9 @@ export class AuthGuard implements CanActivate {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     const path = next.routeConfig.path;
+
+    console.log('Path: ', path);
+
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       if (role && role !== '') {
         console.log('Role: ', role);
